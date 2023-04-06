@@ -3,31 +3,39 @@ import '../styles/productRegister_admin.scss';
 import axios from 'axios';
 
 export default function ProductRegister_admin() {
-  const [newProduct, setNewProduct] = useState({});
-
   const pd_name = useRef();
   const pd_price = useRef();
   const pd_quantity = useRef();
 
-  const onChangeNewProduct = () => {
-    let addPoductObj = {
-      name: pd_name.current.value,
-      price: pd_price.current.value,
-      quantity: pd_quantity.current.value,
-    };
-    setNewProduct((cur) => addPoductObj);
-  };
+  const newProductPost = async () => {
+    console.log(pd_name.current.value);
+    console.log(pd_price.current.value);
+    console.log(pd_quantity.current.value);
 
-  useEffect(() => {
-    const res = async () =>
-      await axios.post('http://localhost4000/pd_register/add_pd', {
-        name: newProduct.name,
-        price: newProduct.price,
-        quantity: newProduct.quantity,
-      });
-    res();
-    console.log(res);
-  }, []);
+    const NewPdPostData = await axios.post(
+      'http://localhost:4005/pd_register/add_pd',
+      {
+        name: pd_name.current.value,
+        price: pd_price.current.value,
+        quantity: pd_quantity.current.value,
+      },
+    );
+    if (NewPdPostData.status !== 200) {
+      const err = new Error('데이터 전송 오류');
+      err.statusCode = 400;
+      throw err;
+    }
+  };
+  // useEffect(() => {
+  //   const res = async () =>
+  //     await axios.post('http://localhost4000/pd_register/add_pd', {
+  //       name: newProduct.name,
+  //       price: newProduct.price,
+  //       quantity: newProduct.quantity,
+  //     });
+  //   res();
+  //   console.log(res);
+  // }, []);
 
   return (
     <section className="productRegister_admin">
@@ -59,7 +67,7 @@ export default function ProductRegister_admin() {
             placeholder="재고수량을 입력해주세요"
           />
         </div>
-        <button onClick={onChangeNewProduct}>등록</button>
+        <button onClick={newProductPost}>등록</button>
       </div>
     </section>
   );
