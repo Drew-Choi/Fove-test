@@ -30,7 +30,7 @@ export default function ProductRegister_admin() {
   }, []);
 
   return (
-    <section>
+    <section className="productRegister_admin">
       <div className="register_container">
         <div>
           <p>상품명</p>

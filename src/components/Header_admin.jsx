@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 export default function Header_admin() {
   const navigate = useNavigate();
   return (
-    <header>
+    <header className="header_admin">
       <p className="logo" onClick={() => navigate('/')}>
         logo
       </p>
