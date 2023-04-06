@@ -12,18 +12,18 @@ export default function ProductRegister_admin() {
     console.log(pd_price.current.value);
     console.log(pd_quantity.current.value);
 
-    const NewPdPostData = await axios.post(
-      'http://localhost:4005/pd_register/add_pd',
+    const newPdPostData = await axios.post(
+      'http://localhost:4000/pd_register/add_pd',
       {
         name: pd_name.current.value,
         price: pd_price.current.value,
         quantity: pd_quantity.current.value,
       },
     );
-    if (NewPdPostData.status !== 200) {
-      const err = new Error('데이터 전송 오류');
-      err.statusCode = 400;
-      throw err;
+    if (newPdPostData.status === 200) {
+      console.log(await newPdPostData);
+    } else {
+      console.log(await newPdPostData);
     }
   };
   // useEffect(() => {

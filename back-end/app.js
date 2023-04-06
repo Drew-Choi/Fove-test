@@ -15,7 +15,9 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-//라우터 추후 추가
+//라우터 연결
+const productRegisterRouter = require('./routes/productRegister');
+app.use('/pd_register', productRegisterRouter);
 
 //포트 키기
 app.listen(PORT, () => {
